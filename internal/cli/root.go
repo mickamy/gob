@@ -6,6 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/mickamy/gob/internal/cli/create"
 	initPkg "github.com/mickamy/gob/internal/cli/init"
 	"github.com/mickamy/gob/internal/cli/version"
 )
@@ -19,6 +20,7 @@ It helps you handle database lifecycle tasks such as creation, migration, rollba
 }
 
 func init() {
+	cmd.AddCommand(create.Cmd)
 	cmd.AddCommand(initPkg.Cmd)
 	cmd.AddCommand(version.Cmd)
 }

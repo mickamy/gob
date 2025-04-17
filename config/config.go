@@ -28,6 +28,10 @@ type Migrations struct {
 	Dir string `yaml:"dir"`
 }
 
+func Load() (Config, error) {
+	return LoadByPath(Path)
+}
+
 func LoadByPath(path string) (Config, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
