@@ -7,11 +7,11 @@ import (
 
 	_ "github.com/lib/pq"
 
-	"github.com/mickamy/gob"
+	"github.com/mickamy/gob/config"
 )
 
 type Postgres struct {
-	cfg gob.Database
+	cfg config.Database
 }
 
 func (pg *Postgres) dsn() string {
@@ -19,7 +19,7 @@ func (pg *Postgres) dsn() string {
 		pg.cfg.Host, pg.cfg.Port, pg.cfg.User, pg.cfg.Password)
 }
 
-func New(cfg gob.Database) *Postgres {
+func New(cfg config.Database) *Postgres {
 	return &Postgres{cfg: cfg}
 }
 

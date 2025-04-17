@@ -26,8 +26,8 @@ This will generate a configuration file (e.g. .gob.yaml) for use with other gob 
 }
 
 func Run() error {
-	if _, err := os.Stat(gob.ConfigPath); err == nil {
-		fmt.Printf("⚠️  %s already exists. Overwrite? [y/N]: ", gob.ConfigPath)
+	if _, err := os.Stat(config.Path); err == nil {
+		fmt.Printf("⚠️  %s already exists. Overwrite? [y/N]: ", config.Path)
 		var res string
 		if _, err := fmt.Scanln(&res); err != nil {
 			return fmt.Errorf("failed to read input: %w", err)
@@ -124,8 +124,8 @@ func Run() error {
 		migrationDir = "migrations"
 	}
 
-	cfg := gob.Config{
-		Database: gob.Database{
+	cfg := config.Config{
+		Database: config.Database{
 			Driver:   driver,
 			Host:     host,
 			Port:     portNumber,
@@ -144,12 +144,12 @@ func Run() error {
 		return nil
 	}
 
-	err = os.WriteFile(gob.ConfigPath, data, 0644)
+	err = os.WriteFile(config.Path, data, 0644)
 	if err != nil {
 		fmt.Printf("❌ Failed to write config file: %v\n", err)
 		return nil
 	}
 
-	fmt.Printf("✅ Successfully generated %s!\n", gob.ConfigPath)
+	fmt.Printf("✅ Successfully generated %s!\n", config.Path)
 	return nil
 }

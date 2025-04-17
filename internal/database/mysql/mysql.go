@@ -6,12 +6,10 @@ import (
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
-
-	"github.com/mickamy/gob"
 )
 
 type MySQL struct {
-	cfg gob.Database
+	cfg config.Database
 }
 
 func (m *MySQL) dsn(dbname string) string {
@@ -24,7 +22,7 @@ func (m *MySQL) dsn(dbname string) string {
 	)
 }
 
-func New(cfg gob.Database) *MySQL {
+func New(cfg config.Database) *MySQL {
 	return &MySQL{cfg: cfg}
 }
 

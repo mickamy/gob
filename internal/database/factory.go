@@ -3,12 +3,12 @@ package database
 import (
 	"fmt"
 
-	"github.com/mickamy/gob"
+	"github.com/mickamy/gob/config"
 	"github.com/mickamy/gob/internal/database/mysql"
 	"github.com/mickamy/gob/internal/database/postgres"
 )
 
-func New(cfg gob.Database) (Database, error) {
+func New(cfg config.Database) (Database, error) {
 	switch cfg.Driver {
 	case "postgres":
 		return postgres.New(cfg), nil
