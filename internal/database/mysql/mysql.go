@@ -6,6 +6,8 @@ import (
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
+
+	"github.com/mickamy/gob/config"
 )
 
 type MySQL struct {
