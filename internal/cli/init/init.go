@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 
-	"github.com/mickamy/gob"
+	"github.com/mickamy/gob/config"
 )
 
 var Cmd = &cobra.Command{
@@ -133,7 +133,7 @@ func Run() error {
 			Password: password,
 			Name:     name,
 		},
-		Migrations: gob.Migrations{
+		Migrations: config.Migrations{
 			Dir: migrationDir,
 		},
 	}
