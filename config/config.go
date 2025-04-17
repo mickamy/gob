@@ -24,6 +24,29 @@ type Database struct {
 	Name     string `yaml:"name"`
 }
 
+func (cfg *Database) URL() (string, error) {
+	switch cfg.Driver {
+	case "postgres":
+		return fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=disable",
+			cfg.User,
+			cfg.Password,
+			cfg.Host,
+			cfg.Port,
+			cfg.Name,
+		), nil
+	case "mysql":
+		return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s",
+			cfg.User,
+			cfg.Password,
+			cfg.Host,
+			cfg.Port,
+			cfg.Name,
+		), nil
+	default:
+		return "", fmt.Errorf("unsupported driver: %s", cfg.Driver)
+	}
+}
+
 type Migrations struct {
 	Dir string `yaml:"dir"`
 }

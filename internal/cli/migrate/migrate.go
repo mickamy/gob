@@ -1,0 +1,37 @@
+package migrate
+
+import (
+	"errors"
+	"fmt"
+
+	"github.com/spf13/cobra"
+
+	"github.com/mickamy/gob"
+	"github.com/mickamy/gob/config"
+)
+
+var Cmd = &cobra.Command{
+	Use:   "migrate",
+	Short: "Apply database migrations",
+	Long:  "Apply all up migrations using the configured database and migration directory.",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		cfg, err := config.Load()
+		if err != nil {
+			fmt.Printf("❌ Failed to load config file at %s: %w\n", config.Path, err)
+		}
+		return Run(cfg)
+	},
+}
+
+func Run(cfg config.Config) error {
+	if err := gob.Migrate(cfg); err != nil {
+		if errors.Is(err, gob.ErrMigrateNoChange) {
+			fmt.Printf("✅ No changes to apply for database %s.\n", cfg.Database.Name)
+			return nil
+		}
+		fmt.Printf("❌ Failed to apply migrations for database %s: %s\n", cfg.Database.Name, err)
+	}
+
+	fmt.Printf("✅ Migrations applied successfully for database %s!\n", cfg.Database.Name)
+	return nil
+}

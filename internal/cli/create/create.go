@@ -17,7 +17,7 @@ var Cmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		cfg, err := config.Load()
 		if err != nil {
-			fmt.Printf("❌ Failed to parse config file at %s: %w\n", config.Path, err)
+			fmt.Printf("❌ Failed to load config file at %s: %w\n", config.Path, err)
 		}
 		return Run(cfg)
 	},
