@@ -60,3 +60,20 @@ func (pg *Postgres) Create() error {
 	_, err = db.Exec("CREATE DATABASE " + pg.cfg.Name)
 	return err
 }
+
+func (pg *Postgres) Drop() error {
+	db, err := sql.Open("postgres", pg.dsn())
+	if err != nil {
+		return fmt.Errorf("failed to connect to postgres: %w", err)
+	}
+	defer func(db *sql.DB) {
+		_ = db.Close()
+	}(db)
+
+	_, err = db.Exec(fmt.Sprintf("DROP DATABASE IF EXISTS %s", pg.cfg.Name))
+	if err != nil {
+		return fmt.Errorf("failed to drop database: %w", err)
+	}
+
+	return nil
+}

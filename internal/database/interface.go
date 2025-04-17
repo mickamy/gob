@@ -2,6 +2,7 @@ package database
 
 type Database interface {
 	Name() string
-	Create() error
 	Exists() (bool, error)
+	Create() error
+	Drop() error
 }

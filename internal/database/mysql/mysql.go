@@ -65,3 +65,20 @@ func (m *MySQL) Create() error {
 	_, err = db.Exec(fmt.Sprintf("CREATE DATABASE `%s`", m.cfg.Name))
 	return err
 }
+
+func (m *MySQL) Drop() error {
+	db, err := sql.Open("mysql", m.dsn(m.cfg.Name))
+	if err != nil {
+		return fmt.Errorf("failed to connect to mysql: %w", err)
+	}
+	defer func(db *sql.DB) {
+		_ = db.Close()
+	}(db)
+
+	_, err = db.Exec(fmt.Sprintf("DROP DATABASE IF EXISTS %s", m.cfg.Name))
+	if err != nil {
+		return fmt.Errorf("failed to drop database: %w", err)
+	}
+
+	return nil
+}
