@@ -1,11 +1,11 @@
-package db
+package database
 
 import (
 	"fmt"
 
 	"github.com/mickamy/gob"
-	"github.com/mickamy/gob/internal/db/mysql"
-	"github.com/mickamy/gob/internal/db/postgres"
+	"github.com/mickamy/gob/internal/database/mysql"
+	"github.com/mickamy/gob/internal/database/postgres"
 )
 
 func New(cfg gob.Database) (Database, error) {

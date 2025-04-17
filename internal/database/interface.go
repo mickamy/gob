@@ -1,4 +1,4 @@
-package db
+package database
 
 type Database interface {
 	Name() string
