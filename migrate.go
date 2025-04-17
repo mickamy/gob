@@ -25,6 +25,9 @@ func Migrate(cfg config.Config) error {
 	if err != nil {
 		return fmt.Errorf("failed to initialize migration: %w", err)
 	}
+	defer func(m *migrate.Migrate) {
+		_, _ = m.Close()
+	}(m)
 
 	if err := m.Up(); err != nil {
 		if errors.Is(err, migrate.ErrNoChange) {
