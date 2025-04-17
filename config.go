@@ -1,6 +1,6 @@
-package config
+package gob
 
-const Path = ".gob.yaml"
+const ConfigPath = ".gob.yaml"
 
 type Config struct {
 	Database   Database   `yaml:"database"`

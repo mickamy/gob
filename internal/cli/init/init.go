@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 
-	"github.com/mickamy/gob/internal/config"
+	"github.com/mickamy/gob"
 )
 
 var Cmd = &cobra.Command{
@@ -26,8 +26,8 @@ This will generate a configuration file (e.g. .gob.yaml) for use with other gob 
 }
 
 func Run() error {
-	if _, err := os.Stat(config.Path); err == nil {
-		fmt.Printf("⚠️  %s already exists. Overwrite? [y/N]: ", config.Path)
+	if _, err := os.Stat(gob.ConfigPath); err == nil {
+		fmt.Printf("⚠️  %s already exists. Overwrite? [y/N]: ", gob.ConfigPath)
 		var res string
 		if _, err := fmt.Scanln(&res); err != nil {
 			return fmt.Errorf("failed to read input: %w", err)
@@ -124,8 +124,8 @@ func Run() error {
 		migrationDir = "migrations"
 	}
 
-	cfg := config.Config{
-		Database: config.Database{
+	cfg := gob.Config{
+		Database: gob.Database{
 			Driver:   driver,
 			Host:     host,
 			Port:     portNumber,
@@ -133,7 +133,7 @@ func Run() error {
 			Password: password,
 			Name:     name,
 		},
-		Migrations: config.Migrations{
+		Migrations: gob.Migrations{
 			Dir: migrationDir,
 		},
 	}
@@ -144,12 +144,12 @@ func Run() error {
 		return nil
 	}
 
-	err = os.WriteFile(config.Path, data, 0644)
+	err = os.WriteFile(gob.ConfigPath, data, 0644)
 	if err != nil {
 		fmt.Printf("❌ Failed to write config file: %v\n", err)
 		return nil
 	}
 
-	fmt.Printf("✅ Successfully generated %s!\n", config.Path)
+	fmt.Printf("✅ Successfully generated %s!\n", gob.ConfigPath)
 	return nil
 }
