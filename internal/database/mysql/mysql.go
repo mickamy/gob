@@ -44,10 +44,13 @@ func (m *MySQL) Exists() (bool, error) {
 	var exists string
 	query := "SELECT SCHEMA_NAME FROM SCHEMATA WHERE SCHEMA_NAME = ?"
 	err = db.QueryRow(query, m.cfg.Name).Scan(&exists)
-	if errors.Is(err, sql.ErrNoRows) {
-		return false, nil
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return false, nil
+		}
+		return false, fmt.Errorf("failed to check if database exists: %w", err)
 	}
-	return err == nil, err
+	return exists != "", err
 }
 
 func (m *MySQL) Create() error {

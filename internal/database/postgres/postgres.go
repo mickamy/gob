@@ -39,10 +39,13 @@ func (pg *Postgres) Exists() (bool, error) {
 	var exists bool
 	query := `SELECT 1 FROM pg_database WHERE datname = $1`
 	err = db.QueryRow(query, pg.cfg.Name).Scan(&exists)
-	if errors.Is(err, sql.ErrNoRows) {
-		return false, nil
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return false, nil
+		}
+		return false, fmt.Errorf("failed to check if database exists: %w", err)
 	}
-	return true, fmt.Errorf("failed to check if database exists: %w", err)
+	return exists, nil
 }
 
 func (pg *Postgres) Create() error {
