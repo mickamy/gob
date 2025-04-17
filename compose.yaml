@@ -1,6 +1,11 @@
 services:
   mysql:
     image: mysql:8.0.36
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: gob
+      MYSQL_USER: gob
+      MYSQL_PASSWORD: password
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - mysql:/var/lib/mysql
@@ -13,12 +18,16 @@ services:
 
   postgres:
     image: postgres:14.6-bullseye
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: gob
     volumes:
       - postgres:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "playground", "-h", "127.0.0.1", "-d", "playground"]
+      test: [ "CMD", "pg_isready", "-U", "postgres", "-h", "127.0.0.1", "-d", "gob" ]
       interval: 5s
       retries: 10
 

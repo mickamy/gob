@@ -4,15 +4,21 @@ BUILD_DIR = bin
 GORELEASER ?= go tool goreleaser
 VERSION_VARIABLE = github.com/mickamy/gob/internal/cli/version/version.version
 
-.PHONY: all up down build install uninstall clean version test fmt
+.PHONY: all up up-d down down-v build install uninstall clean version test fmt
 
 all: build
 
 up: down
+	docker compose up
+
+up-d: down
 	docker compose up -d
 
 down:
 	docker compose down
+
+down-v:
+	docker compose down -v
 
 build:
 	@echo "🔨 Building $(APP_NAME)..."
