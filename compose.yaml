@@ -1,0 +1,27 @@
+services:
+  mysql:
+    image: mysql:8.0.36
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+
+  postgres:
+    image: postgres:14.6-bullseye
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "playground", "-h", "127.0.0.1", "-d", "playground"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  mysql:
+  postgres:
