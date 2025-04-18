@@ -29,7 +29,7 @@ install:
 	go install -ldflags "-X $(VERSION_VARIABLE)=$(VERSION)" ./cmd/gob
 
 uninstall:
-	@echo "🗑️  Uninstalling $(APP_NAME)..."
+	@echo "🗑️ Uninstalling $(APP_NAME)..."
 	@bin_dir=$$(go env GOBIN); \
 	if [ -z "$$bin_dir" ]; then \
 		bin_dir=$$(go env GOPATH)/bin; \
@@ -47,18 +47,6 @@ version:
 test:
 	@echo "🧪 Running tests..."
 	go test ./...
-
-test-panic:
-	@echo "🧪 Testing: expected panic (gob run)..."
-	@$(APP_NAME) run ./testdata/panic.go --open || echo "💥 Panic detected and reported"
-
-test-ok:
-	@echo "🧪 Testing: no panic expected (gob run)..."
-	@$(APP_NAME) run ./testdata/no_panic.go --open
-
-test-lib:
-	@echo "🧪 Testing: panic using gob.Handle() (embedded)..."
-	@go run ./testdata/handle.go || echo "💥 Panic detected and reported"
 
 fmt:
 	@echo "📝 Formatting code..."
