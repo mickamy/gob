@@ -1,0 +1,9 @@
+database:
+    driver: postgres
+    host: localhost
+    port: 5432
+    user: gon
+    password: password
+    name: gob
+migrations:
+    dir: migrations

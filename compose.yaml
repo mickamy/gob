@@ -21,13 +21,13 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: gob
     volumes:
       - postgres:/var/lib/postgresql/data
+      - ./examples/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "postgres", "-h", "127.0.0.1", "-d", "gob" ]
+      test: [ "CMD", "pg_isready", "-U", "postgres", "-h", "127.0.0.1", "-d", "postgres" ]
       interval: 5s
       retries: 10
 

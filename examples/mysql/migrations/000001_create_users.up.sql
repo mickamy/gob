@@ -1,0 +1,5 @@
+CREATE TABLE users
+(
+    id         CHAR(26)     NOT NULL PRIMARY KEY,
+    created_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+);
