@@ -3,10 +3,12 @@ package gob
 import (
 	"errors"
 	"fmt"
+	"path/filepath"
 
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/mysql"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 
 	"github.com/mickamy/gob/config"
 )
@@ -21,7 +23,12 @@ func Migrate(cfg config.Config) error {
 		return fmt.Errorf("failed to get database URL: %w", err)
 	}
 
-	m, err := migrate.New(fmt.Sprintf("file://%s", cfg.Migrations.Dir), dbURL)
+	migrationPath, err := filepath.Abs(cfg.Migrations.Dir)
+	if err != nil {
+		return fmt.Errorf("failed to resolve absolute path for migrations: %w", err)
+	}
+
+	m, err := migrate.New(fmt.Sprintf("file://%s", migrationPath), dbURL)
 	if err != nil {
 		return fmt.Errorf("failed to initialize migration: %w", err)
 	}
