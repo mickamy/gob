@@ -22,10 +22,10 @@ like Rails’ `db:*` commands.
 
 ```bash
 # Install gob into your project
-go get -tool github.com/mickamy/gob@latest
+go get -tool github.com/mickamy/gob/cmd/gob@latest
 
 # or install it globally
-go install github.com/mickamy/gob@latest
+go install github.com/mickamy/gob/cmd/gob@latest
 ```
 
 ---
