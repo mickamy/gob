@@ -3,9 +3,9 @@ package database
 import (
 	"fmt"
 
-	"github.com/mickamy/gob/config"
-	"github.com/mickamy/gob/internal/database/mysql"
-	"github.com/mickamy/gob/internal/database/postgres"
+	"github.com/mickamy/godb/config"
+	"github.com/mickamy/godb/internal/database/mysql"
+	"github.com/mickamy/godb/internal/database/postgres"
 )
 
 func New(cfg config.Database) (Database, error) {

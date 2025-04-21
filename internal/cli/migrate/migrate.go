@@ -7,8 +7,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/mickamy/gob"
-	"github.com/mickamy/gob/config"
+	"github.com/mickamy/godb"
+	"github.com/mickamy/godb/config"
 )
 
 var Cmd = &cobra.Command{
@@ -26,8 +26,8 @@ var Cmd = &cobra.Command{
 }
 
 func Run(cfg config.Config) {
-	if err := gob.Migrate(cfg); err != nil {
-		if errors.Is(err, gob.ErrMigrateNoChange) {
+	if err := godb.Migrate(cfg); err != nil {
+		if errors.Is(err, godb.ErrMigrateNoChange) {
 			fmt.Printf("✅ No changes to apply for database '%s'.\n", cfg.Database.Name)
 			return
 		}

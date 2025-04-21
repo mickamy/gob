@@ -1,16 +1,16 @@
-# 🐘 gob
+# 🐘 godb
 
 > A lightweight database management CLI/Library.
 >
 
-`gob` helps you manage your database with simple commands like `create`, `migrate`, `drop`, and more — inspired by tools
+`godb` helps you manage your database with simple commands like `create`, `migrate`, `drop`, and more — inspired by tools
 like Rails’ `db:*` commands.
 
 ---
 
 ## ✨ Features
 
-- ✅ Interactive `gob init` to scaffold `.gob.yaml`
+- ✅ Interactive `godb init` to scaffold `.godb.yaml`
 - ✅ Easily create and drop databases
 - ✅ Run migrations using `migrate` or `generate migrate`
 - ✅ Supports MySQL and PostgreSQL
@@ -21,11 +21,11 @@ like Rails’ `db:*` commands.
 ## 📦 Installation
 
 ```bash
-# Install gob into your project
-go get -tool github.com/mickamy/gob/cmd/gob@latest
+# Install godb into your project
+go get -tool github.com/mickamy/godb/cmd/godb@latest
 
 # or install it globally
-go install github.com/mickamy/gob/cmd/gob@latest
+go install github.com/mickamy/godb/cmd/godb@latest
 ```
 
 ---
@@ -35,20 +35,20 @@ go install github.com/mickamy/gob/cmd/gob@latest
 Initialize a project with:
 
 ```bash
-gob init
+godb init
 ```
 
 This will walk you through DB config like:
 
 ```yaml
-# .gob.yaml
+# .godb.yaml
 database:
   driver: postgres
   host: localhost
   port: 5432
-  user: gob
+  user: godb
   password: password
-  name: gob
+  name: godb
 
 migrations:
   dir: migrations
@@ -63,19 +63,19 @@ migrations:
 ### Create a database
 
 ```bash
-gob create
+godb create
 ```
 
 ### Drop a database
 
 ```bash
-gob drop
+godb drop
 ```
 
 ### Run migrations
 
 ```bash
-gob migrate
+godb migrate
 ```
 
 This uses the `migrate` binary under the hood (with fallback to go tool migrate if available)
@@ -85,7 +85,7 @@ This uses the `migrate` binary under the hood (with fallback to go tool migrate 
 ## 🛠 Generate migration file
 
 ```bash
-gob g migration create_users
+godb g migration create_users
 ```
 
 This forwards to `migrate create` to create a new migration file.
@@ -99,10 +99,10 @@ migrations/000001_create_users.down.sql
 
 ## 📚 Using as a Library
 
-You can also use `gob` as a Go package to manage your database programmatically:
+You can also use `godb` as a Go package to manage your database programmatically:
 
 ```bash
-go get github.com/mickamy/gob@latest
+go get github.com/mickamy/godb@latest
 ```
 
 ### 1. Load the config
@@ -111,7 +111,7 @@ go get github.com/mickamy/gob@latest
 import (
   "log"
 
-  "github.com/mickamy/gob/config"
+  "github.com/mickamy/godb/config"
 )
 
 cfg, err := config.Load()
@@ -127,11 +127,11 @@ import (
   "errors"
   "log"
 
-  "github.com/mickamy/gob"
+  "github.com/mickamy/godb"
 )
 
-err := gob.Create(cfg)
-if errors.Is(err, gob.ErrCreateDatabaseExists) {
+err := godb.Create(cfg)
+if errors.Is(err, godb.ErrCreateDatabaseExists) {
   log.Println("database already exists, skipping.")
 } else if err != nil {
   log.Fatal("failed to create database:", err)
@@ -144,10 +144,10 @@ if errors.Is(err, gob.ErrCreateDatabaseExists) {
 import (
   "log"
 
-  "github.com/mickamy/gob"
+  "github.com/mickamy/godb"
 )
 
-if err := gob.Drop(cfg); err != nil {
+if err := godb.Drop(cfg); err != nil {
   log.Fatal("failed to drop database:", err)
 }
 
@@ -160,11 +160,11 @@ import (
   "errors"
   "log"
 
-  "github.com/mickamy/gob"
+  "github.com/mickamy/godb"
 )
 
-err := gob.Migrate(cfg)
-if errors.Is(err, gob.ErrMigrateNoChange) {
+err := godb.Migrate(cfg)
+if errors.Is(err, godb.ErrMigrateNoChange) {
   log.Println"no new migrations to apply.")
 } else if err != nil {
   log.Fatal("migration failed:", err)

@@ -1,10 +1,10 @@
-package gob
+package godb
 
 import (
 	"fmt"
 
-	"github.com/mickamy/gob/config"
-	"github.com/mickamy/gob/internal/database"
+	"github.com/mickamy/godb/config"
+	"github.com/mickamy/godb/internal/database"
 )
 
 func Drop(cfg config.Config) error {

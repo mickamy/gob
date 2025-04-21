@@ -1,4 +1,4 @@
-package gob
+package godb
 
 import (
 	"errors"
@@ -10,7 +10,7 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 
-	"github.com/mickamy/gob/config"
+	"github.com/mickamy/godb/config"
 )
 
 var (

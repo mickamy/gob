@@ -1,11 +1,11 @@
-package gob
+package godb
 
 import (
 	"errors"
 	"fmt"
 
-	"github.com/mickamy/gob/config"
-	"github.com/mickamy/gob/internal/database"
+	"github.com/mickamy/godb/config"
+	"github.com/mickamy/godb/internal/database"
 )
 
 var (

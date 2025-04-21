@@ -4,6 +4,6 @@ database:
     port: 5432
     user: gon
     password: password
-    name: gob
+    name: godb
 migrations:
     dir: migrations

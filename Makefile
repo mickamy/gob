@@ -1,8 +1,8 @@
-APP_NAME = gob
+APP_NAME = godb
 VERSION ?= dev
 BUILD_DIR = bin
 GORELEASER ?= go tool goreleaser
-VERSION_VARIABLE = github.com/mickamy/gob/internal/cli/version/version.version
+VERSION_VARIABLE = github.com/mickamy/godb/internal/cli/version/version.version
 
 .PHONY: all up up-d down down-v build install uninstall clean version test fmt
 
@@ -22,11 +22,11 @@ down-v:
 
 build:
 	@echo "🔨 Building $(APP_NAME)..."
-	go build -ldflags "-X $(VERSION_VARIABLE)=$(VERSION)" -o $(BUILD_DIR)/$(APP_NAME) ./cmd/gob
+	go build -ldflags "-X $(VERSION_VARIABLE)=$(VERSION)" -o $(BUILD_DIR)/$(APP_NAME) ./cmd/godb
 
 install:
 	@echo "📦 Installing $(APP_NAME)..."
-	go install -ldflags "-X $(VERSION_VARIABLE)=$(VERSION)" ./cmd/gob
+	go install -ldflags "-X $(VERSION_VARIABLE)=$(VERSION)" ./cmd/godb
 
 uninstall:
 	@echo "🗑️ Uninstalling $(APP_NAME)..."

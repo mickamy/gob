@@ -1,9 +1,9 @@
-package gob
+package godb
 
 import (
 	"fmt"
 
-	"github.com/mickamy/gob/config"
+	"github.com/mickamy/godb/config"
 )
 
 func Reset(cfg config.Config) error {

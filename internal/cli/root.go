@@ -6,19 +6,19 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/mickamy/gob/internal/cli/create"
-	"github.com/mickamy/gob/internal/cli/drop"
-	"github.com/mickamy/gob/internal/cli/generate"
-	initPkg "github.com/mickamy/gob/internal/cli/init"
-	"github.com/mickamy/gob/internal/cli/migrate"
-	"github.com/mickamy/gob/internal/cli/reset"
-	"github.com/mickamy/gob/internal/cli/version"
+	"github.com/mickamy/godb/internal/cli/create"
+	"github.com/mickamy/godb/internal/cli/drop"
+	"github.com/mickamy/godb/internal/cli/generate"
+	initPkg "github.com/mickamy/godb/internal/cli/init"
+	"github.com/mickamy/godb/internal/cli/migrate"
+	"github.com/mickamy/godb/internal/cli/reset"
+	"github.com/mickamy/godb/internal/cli/version"
 )
 
 var cmd = &cobra.Command{
-	Use:   "gob",
+	Use:   "godb",
 	Short: "A lightweight DB management CLI for Go projects",
-	Long: `gob is a database management tool designed for Go projects.
+	Long: `godb is a database management tool designed for Go projects.
 
 It helps you handle database lifecycle tasks such as creation, migration, rollback, seeding, and more — all from a single, developer-friendly CLI.`,
 }

@@ -6,8 +6,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/mickamy/gob"
-	"github.com/mickamy/gob/config"
+	"github.com/mickamy/godb"
+	"github.com/mickamy/godb/config"
 )
 
 var Cmd = &cobra.Command{
@@ -16,7 +16,7 @@ var Cmd = &cobra.Command{
 	Long: `Reset the database by dropping it, recreating it, and applying all migrations.
 
 Useful for local development when you want a fresh schema.
-This command is equivalent to running 'gob drop', 'gob create', and 'gob migrate' in sequence.`,
+This command is equivalent to running 'godb drop', 'godb create', and 'godb migrate' in sequence.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		cfg, err := config.Load()
 		if err != nil {
@@ -27,7 +27,7 @@ This command is equivalent to running 'gob drop', 'gob create', and 'gob migrate
 }
 
 func Run(cfg config.Config) {
-	if err := gob.Reset(cfg); err != nil {
+	if err := godb.Reset(cfg); err != nil {
 		fmt.Printf("❌ Failed to reset database '%s': %s\n", cfg.Database.Name, err)
 		os.Exit(1)
 	}

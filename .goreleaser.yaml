@@ -1,20 +1,20 @@
 version: 2
-project_name: gob
+project_name: godb
 release:
   github:
     owner: mickamy
-    name: gob
+    name: godb
   draft: false
   prerelease: "false"
 
 builds:
-  - id: gob
-    main: ./cmd/gob/main.go
+  - id: godb
+    main: ./cmd/godb/main.go
     goos: [ darwin, linux, windows ]
     goarch: [ amd64, arm64 ]
     ldflags:
-      - "-X github.com/mickamy/gob/internal/cli/version/version.version={{.Version}}"
-    binary: gob
+      - "-X github.com/mickamy/godb/internal/cli/version/version.version={{.Version}}"
+    binary: godb
 
 archives:
   - formats: tar.gz

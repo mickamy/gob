@@ -8,7 +8,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/mickamy/gob/config"
+	"github.com/mickamy/godb/config"
 )
 
 var migrationCmd = &cobra.Command{

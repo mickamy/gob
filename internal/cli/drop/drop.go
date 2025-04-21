@@ -6,14 +6,14 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/mickamy/gob"
-	"github.com/mickamy/gob/config"
+	"github.com/mickamy/godb"
+	"github.com/mickamy/godb/config"
 )
 
 var Cmd = &cobra.Command{
 	Use:   "drop",
-	Short: "Drop the database defined in your gob config",
-	Long:  "Drops a database using the connection settings defined in .gob.yaml",
+	Short: "Drop the database defined in your godb config",
+	Long:  "Drops a database using the connection settings defined in .godb.yaml",
 	Run: func(cmd *cobra.Command, args []string) {
 		cfg, err := config.Load()
 		if err != nil {
@@ -24,7 +24,7 @@ var Cmd = &cobra.Command{
 }
 
 func Run(cfg config.Config) {
-	if err := gob.Drop(cfg); err != nil {
+	if err := godb.Drop(cfg); err != nil {
 		fmt.Printf("❌ Failed to drop database '%s': %s\n", cfg.Database.Name, err)
 		os.Exit(1)
 	}

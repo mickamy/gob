@@ -10,16 +10,16 @@ import (
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 
-	"github.com/mickamy/gob/config"
+	"github.com/mickamy/godb/config"
 )
 
 var Cmd = &cobra.Command{
 	Use:   "init",
-	Short: "Create a new gob config with interactive prompts",
-	Long: `Initialize a new gob project by selecting database engine,
+	Short: "Create a new godb config with interactive prompts",
+	Long: `Initialize a new godb project by selecting database engine,
 connection settings, and migration path via interactive prompts.
 
-This will generate a configuration file (e.g. .gob.yaml) for use with other gob commands.`,
+This will generate a configuration file (e.g. .godb.yaml) for use with other godb commands.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return Run()
 	},
@@ -40,7 +40,7 @@ func Run() error {
 
 	reader := bufio.NewReader(os.Stdin)
 
-	fmt.Println("🚀 Welcome to gob init!")
+	fmt.Println("🚀 Welcome to godb init!")
 	fmt.Println("🔧 Select database engine:")
 	fmt.Println("   1) PostgreSQL")
 	fmt.Println("   2) MySQL")

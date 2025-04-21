@@ -3,8 +3,8 @@ services:
     image: mysql:8.0.36
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: gob
-      MYSQL_USER: gob
+      MYSQL_DATABASE: godb
+      MYSQL_USER: godb
       MYSQL_PASSWORD: password
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
