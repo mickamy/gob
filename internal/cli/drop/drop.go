@@ -17,7 +17,7 @@ var Cmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		cfg, err := config.Load()
 		if err != nil {
-			fmt.Printf("❌  Failed to load config file at %s: %s\n", config.Path, err)
+			fmt.Printf("❌ Failed to load config file at %s: %s\n", config.Path, err)
 		}
 		Run(cfg)
 	},
@@ -25,9 +25,9 @@ var Cmd = &cobra.Command{
 
 func Run(cfg config.Config) {
 	if err := gob.Drop(cfg); err != nil {
-		fmt.Printf("❌  Failed to drop database '%s': %s\n", cfg.Database.Name, err)
+		fmt.Printf("❌ Failed to drop database '%s': %s\n", cfg.Database.Name, err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("✅  Database '%s' dropped successfully!\n", cfg.Database.Name)
+	fmt.Printf("✅ Database '%s' dropped successfully!\n", cfg.Database.Name)
 }

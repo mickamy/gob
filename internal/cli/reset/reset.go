@@ -20,7 +20,7 @@ This command is equivalent to running 'gob drop', 'gob create', and 'gob migrate
 	Run: func(cmd *cobra.Command, args []string) {
 		cfg, err := config.Load()
 		if err != nil {
-			fmt.Printf("❌  Failed to load config file at %s: %s\n", config.Path, err)
+			fmt.Printf("❌ Failed to load config file at %s: %s\n", config.Path, err)
 		}
 		Run(cfg)
 	},
@@ -28,9 +28,9 @@ This command is equivalent to running 'gob drop', 'gob create', and 'gob migrate
 
 func Run(cfg config.Config) {
 	if err := gob.Reset(cfg); err != nil {
-		fmt.Printf("❌  Failed to reset database '%s': %s\n", cfg.Database.Name, err)
+		fmt.Printf("❌ Failed to reset database '%s': %s\n", cfg.Database.Name, err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("✅  Database '%s' resetted successfully!\n", cfg.Database.Name)
+	fmt.Printf("✅ Database '%s' resetted successfully!\n", cfg.Database.Name)
 }
