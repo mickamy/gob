@@ -8,6 +8,7 @@ import (
 
 	"github.com/mickamy/gob/internal/cli/create"
 	"github.com/mickamy/gob/internal/cli/drop"
+	"github.com/mickamy/gob/internal/cli/generate"
 	initPkg "github.com/mickamy/gob/internal/cli/init"
 	"github.com/mickamy/gob/internal/cli/migrate"
 	"github.com/mickamy/gob/internal/cli/version"
@@ -24,6 +25,7 @@ It helps you handle database lifecycle tasks such as creation, migration, rollba
 func init() {
 	cmd.AddCommand(create.Cmd)
 	cmd.AddCommand(drop.Cmd)
+	cmd.AddCommand(generate.Cmd)
 	cmd.AddCommand(initPkg.Cmd)
 	cmd.AddCommand(migrate.Cmd)
 	cmd.AddCommand(version.Cmd)
