@@ -11,6 +11,7 @@ import (
 	"github.com/mickamy/gob/internal/cli/generate"
 	initPkg "github.com/mickamy/gob/internal/cli/init"
 	"github.com/mickamy/gob/internal/cli/migrate"
+	"github.com/mickamy/gob/internal/cli/reset"
 	"github.com/mickamy/gob/internal/cli/version"
 )
 
@@ -28,6 +29,7 @@ func init() {
 	cmd.AddCommand(generate.Cmd)
 	cmd.AddCommand(initPkg.Cmd)
 	cmd.AddCommand(migrate.Cmd)
+	cmd.AddCommand(reset.Cmd)
 	cmd.AddCommand(version.Cmd)
 }
 
