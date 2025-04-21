@@ -18,7 +18,7 @@ var Cmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		cfg, err := config.Load()
 		if err != nil {
-			fmt.Printf("❌ Failed to load config file at %s: %w\n", config.Path, err)
+			fmt.Printf("❌  Failed to load config file at %s: %w\n", config.Path, err)
 			os.Exit(1)
 		}
 		Run(cfg)
@@ -28,12 +28,12 @@ var Cmd = &cobra.Command{
 func Run(cfg config.Config) {
 	if err := gob.Migrate(cfg); err != nil {
 		if errors.Is(err, gob.ErrMigrateNoChange) {
-			fmt.Printf("✅ No changes to apply for database '%s'.\n", cfg.Database.Name)
+			fmt.Printf("✅  No changes to apply for database '%s'.\n", cfg.Database.Name)
 			return
 		}
-		fmt.Printf("❌ Failed to apply migrations for database '%s': %s\n", cfg.Database.Name, err)
+		fmt.Printf("❌  Failed to apply migrations for database '%s': %s\n", cfg.Database.Name, err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("✅ Migrations applied successfully for database '%s'!\n", cfg.Database.Name)
+	fmt.Printf("✅  Migrations applied successfully for database '%s'!\n", cfg.Database.Name)
 }

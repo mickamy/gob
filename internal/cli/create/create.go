@@ -18,7 +18,7 @@ var Cmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		cfg, err := config.Load()
 		if err != nil {
-			fmt.Printf("❌ Failed to load config file at %s: %w\n", config.Path, err)
+			fmt.Printf("❌  Failed to load config file at %s: %w\n", config.Path, err)
 		}
 		Run(cfg)
 	},
@@ -27,12 +27,12 @@ var Cmd = &cobra.Command{
 func Run(cfg config.Config) {
 	if err := gob.Create(cfg); err != nil {
 		if errors.Is(err, gob.ErrCreateDatabaseExists) {
-			fmt.Printf("✅ Database '%s' already exists.\n", cfg.Database.Name)
+			fmt.Printf("✅  Database '%s' already exists.\n", cfg.Database.Name)
 			return
 		}
-		fmt.Printf("❌ Failed to create database '%s': %s\n", cfg.Database.Name, err)
+		fmt.Printf("❌  Failed to create database '%s': %s\n", cfg.Database.Name, err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("✅ Database '%s' created successfully!\n", cfg.Database.Name)
+	fmt.Printf("✅  Database '%s' created successfully!\n", cfg.Database.Name)
 }
