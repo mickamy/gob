@@ -23,7 +23,8 @@ like Rails’ `db:*` commands.
 ```bash
 # Install gob into your project
 go get -tool github.com/mickamy/gob@latest
-# Install gob globally
+
+# or install it globally
 go install github.com/mickamy/gob@latest
 ```
 
@@ -95,6 +96,87 @@ migrations/000001_create_users.down.sql
 ```
 
 ---
+
+## 📚 Using as a Library
+
+You can also use `gob` as a Go package to manage your database programmatically:
+
+```bash
+go get github.com/mickamy/gob@latest
+```
+
+### 1. Load the config
+
+```go
+import (
+  "log"
+
+  "github.com/mickamy/gob/config"
+)
+
+cfg, err := config.Load()
+if err != nil {
+  log.Fatal("failed to load config:", err)
+}
+```
+
+### 2. Create a database
+
+```go
+import (
+  "errors"
+  "log"
+
+  "github.com/mickamy/gob"
+)
+
+err := gob.Create(cfg)
+if errors.Is(err, gob.ErrCreateDatabaseExists) {
+  log.Println("database already exists, skipping.")
+} else if err != nil {
+  log.Fatal("failed to create database:", err)
+}
+```
+
+### 3. Drop a database
+
+```go
+import (
+  "log"
+
+  "github.com/mickamy/gob"
+)
+
+if err := gob.Drop(cfg); err != nil {
+  log.Fatal("failed to drop database:", err)
+}
+
+```
+
+### 4. Run migrations
+
+```go
+import (
+  "errors"
+  "log"
+
+  "github.com/mickamy/gob"
+)
+
+err := gob.Migrate(cfg)
+if errors.Is(err, gob.ErrMigrateNoChange) {
+  log.Println"no new migrations to apply.")
+} else if err != nil {
+  log.Fatal("migration failed:", err)
+}
+
+```
+
+> You can use this to integrate database set-up into your own tooling, tests, or set-up scripts.
+>
+
+---
+
 ## 🧪 Supported drivers
 
 - ✅ MySQL
