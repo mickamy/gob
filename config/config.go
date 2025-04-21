@@ -49,6 +49,8 @@ func (cfg *Database) URL() (string, error) {
 
 type Migrations struct {
 	Dir string `yaml:"dir"`
+	Ext string `yaml:"ext"`
+	Seq bool   `yaml:"seq"`
 }
 
 func Load() (Config, error) {

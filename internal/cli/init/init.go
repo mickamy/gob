@@ -135,6 +135,8 @@ func Run() error {
 		},
 		Migrations: config.Migrations{
 			Dir: migrationDir,
+			Ext: "sql",
+			Seq: false,
 		},
 	}
 
