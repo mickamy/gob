@@ -1,6 +1,6 @@
 # 🐘 gob
 
-> A lightweight database management CLI for Go projects.
+> A lightweight database management CLI/Library.
 >
 
 `gob` helps you manage your database with simple commands like `create`, `migrate`, `drop`, and more — inspired by tools
@@ -85,7 +85,7 @@ This uses the `migrate` binary under the hood (with fallback to go tool migrate 
 ## 🛠 Generate migration file
 
 ```bash
-gob g migrate -ext sql -dir migrations create_users
+gob g migrate create_users
 ```
 
 This forwards to `golang-migrate create` to create a new migration file.
