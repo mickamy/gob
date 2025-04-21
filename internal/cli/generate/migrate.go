@@ -21,7 +21,7 @@ If 'migrate' is not installed as a binary, it falls back to 'go tool migrate'.
 	Run: func(cmd *cobra.Command, args []string) {
 		cfg, err := config.Load()
 		if err != nil {
-			fmt.Printf("❌  Failed to load config file at %s: %w\n", config.Path, err)
+			fmt.Printf("❌  Failed to load config file at %s: %s\n", config.Path, err)
 			os.Exit(1)
 		}
 
