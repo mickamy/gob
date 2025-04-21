@@ -85,10 +85,10 @@ This uses the `migrate` binary under the hood (with fallback to go tool migrate 
 ## 🛠 Generate migration file
 
 ```bash
-gob g migrate create_users
+gob g migration create_users
 ```
 
-This forwards to `golang-migrate create` to create a new migration file.
+This forwards to `migrate create` to create a new migration file.
 
 ```
 migrations/000001_create_users.up.sql

@@ -11,8 +11,8 @@ import (
 	"github.com/mickamy/gob/config"
 )
 
-var migrateCmd = &cobra.Command{
-	Use:   "migrate [args]",
+var migrationCmd = &cobra.Command{
+	Use:   "migration [args]",
 	Short: "Forward to golang-migrate CLI (binary or go tool)",
 	Long: `Forwards arguments to the golang-migrate CLI.
 

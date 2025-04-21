@@ -18,6 +18,6 @@ Currently, it only supports generating SQL migration files w/ golang-migrate.
 
 func init() {
 	Cmd.AddCommand(
-		migrateCmd,
+		migrationCmd,
 	)
 }
