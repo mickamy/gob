@@ -10,6 +10,10 @@ import (
 	"github.com/mickamy/godb/config"
 )
 
+var (
+	force bool
+)
+
 var Cmd = &cobra.Command{
 	Use:   "reset",
 	Short: "Drop, recreate, and migrate the database",
@@ -22,12 +26,16 @@ This command is equivalent to running 'godb drop', 'godb create', and 'godb migr
 		if err != nil {
 			fmt.Printf("❌ Failed to load config file at %s: %s\n", config.Path, err)
 		}
-		Run(cfg)
+		Run(cfg, force)
 	},
 }
 
-func Run(cfg config.Config) {
-	if err := godb.Reset(cfg); err != nil {
+func init() {
+	Cmd.Flags().BoolVarP(&force, "force", "f", false, "Terminate the connections to the database before dropping it")
+}
+
+func Run(cfg config.Config, force bool) {
+	if err := godb.Reset(cfg, force); err != nil {
 		fmt.Printf("❌ Failed to reset database '%s': %s\n", cfg.Database.Name, err)
 		os.Exit(1)
 	}

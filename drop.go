@@ -7,13 +7,13 @@ import (
 	"github.com/mickamy/godb/internal/database"
 )
 
-func Drop(cfg config.Config) error {
+func Drop(cfg config.Config, force bool) error {
 	db, err := database.New(cfg.Database)
 	if err != nil {
 		return fmt.Errorf("failed to create database: %w", err)
 	}
 
-	if err := db.Drop(); err != nil {
+	if err := db.Drop(force); err != nil {
 		return fmt.Errorf("failed to drop database: %w", err)
 	}
 

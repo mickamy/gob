@@ -66,8 +66,8 @@ func (m *MySQL) Create() error {
 	return err
 }
 
-func (m *MySQL) Drop() error {
-	db, err := sql.Open("mysql", m.dsn(m.cfg.Name))
+func (m *MySQL) Drop(force bool) error {
+	db, err := sql.Open("mysql", m.dsn(""))
 	if err != nil {
 		return fmt.Errorf("failed to connect to mysql: %w", err)
 	}
@@ -75,7 +75,27 @@ func (m *MySQL) Drop() error {
 		_ = db.Close()
 	}(db)
 
-	_, err = db.Exec(fmt.Sprintf("DROP DATABASE IF EXISTS %s", m.cfg.Name))
+	if force {
+		rows, err := db.Query("SELECT id FROM information_schema.processlist WHERE db = ?", m.cfg.Name)
+		if err != nil {
+			return fmt.Errorf("failed to query processlist: %w", err)
+		}
+		defer func(rows *sql.Rows) {
+			_ = rows.Close()
+		}(rows)
+
+		var id int
+		for rows.Next() {
+			if err := rows.Scan(&id); err != nil {
+				return fmt.Errorf("failed to scan process id: %w", err)
+			}
+			if _, err := db.Exec(fmt.Sprintf("KILL %d", id)); err != nil {
+				return fmt.Errorf("failed to kill process %d: %w", id, err)
+			}
+		}
+	}
+
+	_, err = db.Exec(fmt.Sprintf("DROP DATABASE IF EXISTS `%s`", m.cfg.Name))
 	if err != nil {
 		return fmt.Errorf("failed to drop database: %w", err)
 	}

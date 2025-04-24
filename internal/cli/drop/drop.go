@@ -10,6 +10,10 @@ import (
 	"github.com/mickamy/godb/config"
 )
 
+var (
+	force bool
+)
+
 var Cmd = &cobra.Command{
 	Use:   "drop",
 	Short: "Drop the database defined in your godb config",
@@ -19,12 +23,16 @@ var Cmd = &cobra.Command{
 		if err != nil {
 			fmt.Printf("❌ Failed to load config file at %s: %s\n", config.Path, err)
 		}
-		Run(cfg)
+		Run(cfg, force)
 	},
 }
 
-func Run(cfg config.Config) {
-	if err := godb.Drop(cfg); err != nil {
+func init() {
+	Cmd.Flags().BoolVarP(&force, "force", "f", false, "Terminate the connections to the database before dropping it")
+}
+
+func Run(cfg config.Config, force bool) {
+	if err := godb.Drop(cfg, force); err != nil {
 		fmt.Printf("❌ Failed to drop database '%s': %s\n", cfg.Database.Name, err)
 		os.Exit(1)
 	}
