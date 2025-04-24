@@ -6,8 +6,8 @@ import (
 	"github.com/mickamy/godb/config"
 )
 
-func Reset(cfg config.Config) error {
-	if err := Drop(cfg); err != nil {
+func Reset(cfg config.Config, force bool) error {
+	if err := Drop(cfg, force); err != nil {
 		return fmt.Errorf("failed to drop database: %w", err)
 	}
 

@@ -61,7 +61,7 @@ func (pg *Postgres) Create() error {
 	return err
 }
 
-func (pg *Postgres) Drop() error {
+func (pg *Postgres) Drop(force bool) error {
 	db, err := sql.Open("postgres", pg.dsn())
 	if err != nil {
 		return fmt.Errorf("failed to connect to postgres: %w", err)
@@ -70,7 +70,11 @@ func (pg *Postgres) Drop() error {
 		_ = db.Close()
 	}(db)
 
-	_, err = db.Exec(fmt.Sprintf("DROP DATABASE IF EXISTS %s", pg.cfg.Name))
+	query := fmt.Sprintf("DROP DATABASE IF EXISTS %s", pg.cfg.Name)
+	if force {
+		query += " WITH (FORCE)"
+	}
+	_, err = db.Exec(query)
 	if err != nil {
 		return fmt.Errorf("failed to drop database: %w", err)
 	}

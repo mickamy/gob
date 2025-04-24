@@ -147,11 +147,12 @@ import (
   "github.com/mickamy/godb"
 )
 
-if err := godb.Drop(cfg); err != nil {
+if err := godb.Drop(cfg, false); err != nil {
   log.Fatal("failed to drop database:", err)
 }
-
 ```
+
+The second argument is a flag to terminate all the connections to the database before dropping it.
 
 ### 4. Run migrations
 
