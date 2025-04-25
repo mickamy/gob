@@ -12,6 +12,7 @@ import (
 	initPkg "github.com/mickamy/godb/internal/cli/init"
 	"github.com/mickamy/godb/internal/cli/migrate"
 	"github.com/mickamy/godb/internal/cli/reset"
+	"github.com/mickamy/godb/internal/cli/rollback"
 	"github.com/mickamy/godb/internal/cli/version"
 )
 
@@ -30,6 +31,7 @@ func init() {
 	cmd.AddCommand(initPkg.Cmd)
 	cmd.AddCommand(migrate.Cmd)
 	cmd.AddCommand(reset.Cmd)
+	cmd.AddCommand(rollback.Cmd)
 	cmd.AddCommand(version.Cmd)
 }
 

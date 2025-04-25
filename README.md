@@ -78,7 +78,16 @@ godb drop
 godb migrate
 ```
 
-This uses the `migrate` binary under the hood (with fallback to go tool migrate if available)
+This uses the `migrate` binary under the hood (with fallback to go tool migrate if available).
+
+
+### Rollback migrations
+
+```bash
+godb rollback --step=1
+````
+
+This also uses the `migrate` binary under the hood.
 
 ---
 
@@ -171,6 +180,12 @@ if errors.Is(err, godb.ErrMigrateNoChange) {
   log.Fatal("migration failed:", err)
 }
 
+err = godb.Rollback(cfg, 1)
+if errors.Is(err, godb.ErrMigrateNoChange) {
+  log.Println("no migrations to rollback.")
+} else if err != nil {
+  log.Fatal("rollback failed:", err)
+}
 ```
 
 > You can use this to integrate database set-up into your own tooling, tests, or set-up scripts.
