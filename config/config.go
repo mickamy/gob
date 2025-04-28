@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"net/url"
 	"os"
 
 	"gopkg.in/yaml.v3"
@@ -28,19 +29,19 @@ func (cfg *Database) URL() (string, error) {
 	switch cfg.Driver {
 	case "postgres":
 		return fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=disable",
-			cfg.User,
-			cfg.Password,
+			url.QueryEscape(cfg.User),
+			url.QueryEscape(cfg.Password),
 			cfg.Host,
 			cfg.Port,
-			cfg.Name,
+			url.QueryEscape(cfg.Name),
 		), nil
 	case "mysql":
 		return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s",
-			cfg.User,
-			cfg.Password,
+			url.QueryEscape(cfg.User),
+			url.QueryEscape(cfg.Password),
 			cfg.Host,
 			cfg.Port,
-			cfg.Name,
+			url.QueryEscape(cfg.Name),
 		), nil
 	default:
 		return "", fmt.Errorf("unsupported driver: %s", cfg.Driver)
